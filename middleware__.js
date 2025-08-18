@@ -23,19 +23,9 @@ async function middleware(req, res) {
   }
 
 
-  if (!isBot && currentDomain === 'fkad.su') {
-    return NextResponse.redirect(`https://${subdomain}${path}`, 301);
-  }
 
-  if (isBot && currentDomain === 'fkad.su') {
-    return NextResponse.redirect(`https://${siteDomain}${path}`, 301);
-  }
 
-  //редирект для яндекса для склейки доменов
 
-  // if (isBot && currentDomain === siteDomain) {
-  //   return NextResponse.redirect(`https://${newDomain}${path}`, 301);
-  // }
 
 
   // Во всех остальных случаях не делаем редирект
