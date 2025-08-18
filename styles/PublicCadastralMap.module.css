@@ -1,0 +1,178 @@
+.section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+/* Все стили ниже — внутри .section */
+
+.section h2 {
+  border-bottom: 2px solid #48a728;
+}
+
+.section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.section ul {
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+.section ul li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.section table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  color: #444;
+}
+
+.section thead tr {
+  background-color: #e0e7ff;
+}
+
+.section th,
+.section td {
+  border: 1px solid #cbd5e1;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.section th {
+  font-weight: 700;
+  color: #48a728;
+}
+
+.section tbody tr:hover {
+  background-color: #f0f4ff;
+}
+
+.section a {
+  color: #48a728;
+  text-decoration: none;
+}
+
+.section a:hover {
+  text-decoration: underline;
+  color: #1e40af;
+}
+
+/* Иконки внутри списков */
+.section li svg {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  color: #48a728;
+}
+
+.section h3 svg {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  color: #48a728;
+}
+
+/* FAQ */
+.section .faq-question {
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: #e0e7ff;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.section .faq-question:hover {
+  background-color: #c7d2fe;
+}
+
+.section .faq-answer {
+  padding: 0 1rem 1rem 1.5rem;
+  color: #374151;
+  display: none;
+  font-size: 0.95rem;
+}
+
+.section .faq-question.active + .faq-answer {
+  display: block;
+}
+
+.section table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.section th {
+  font-weight: 700;
+  color: #48a728;
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid #ccc;
+}
+
+.section td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.section tr:hover {
+  background-color: #f9f9f9;
+}
+
+.section > div {
+  overflow-x: auto;
+}
+
+/* 📱 Мобильная адаптация */
+@media (max-width: 768px) {
+  .section table {
+    border: 0;
+    min-width: 100%;
+  }
+
+  .section thead {
+    display: none;
+  }
+
+  .section tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    background: #fff;
+  }
+
+  .section td {
+    display: block;
+    text-align: left;
+    border-bottom: none;
+  }
+
+  /* .section td::before {
+    content: attr(data-label) ": ";
+    font-weight: bold;
+    color: #48a728;
+    display: block;
+    margin-bottom: 4px;
+  } */
+}
