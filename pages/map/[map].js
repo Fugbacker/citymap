@@ -1476,7 +1476,9 @@ export async function getServerSideProps(context) {
 
 
     const collection = db.collection(`${englishRegionName}_fias_street`);
+    console.log('collection', collection);
     const array = await collection.find({'parent_id_adm': regionId }).toArray();
+    console.log('array', array);
     const regionNameObject = await collection.findOne({'id': regionId });
     const regionName = regionNameObject?.name;
 
@@ -1509,6 +1511,8 @@ export async function getServerSideProps(context) {
       districtName: regionName,
       'data.feature.attrs.okrug': regionNumber
     });
+
+    console.log('object', object);
 
 
     function convertCoordinates(point) {
