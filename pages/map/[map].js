@@ -34,8 +34,18 @@ const clientPromise = client.connect()
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 
 async function getDatabase() {
-  await clientPromise; // Убедитесь, что подключение завершено
-  return client.db(process.env.MONGO_COLLECTION);
+  try {
+    await clientPromise; // ждём подключение
+
+    // Проверим, что коннект живой
+    await client.db("admin").command({ ping: 1 });
+    console.log("✅ Подключение к MongoDB установлено");
+
+    return client.db(process.env.MONGO_COLLECTION);
+  } catch (err) {
+    console.error("❌ Ошибка подключения к MongoDB:", err);
+    throw err;
+  }
 }
 
 
@@ -1941,6 +1951,7 @@ export async function getServerSideProps(context) {
   }
 
   const collection1 = db.collection(`${englishRegionName}_fias_street`);
+
   const array = await collection1.find({ 'level': { $in: [2, 3, 5] } }).toArray();
   const regionArray = array.map((it) => {
     return {
