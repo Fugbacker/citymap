@@ -1520,6 +1520,7 @@ export async function getServerSideProps(context) {
     });
     console.log ('regionName', regionName);
     console.log ('regionNumber', regionNumber);
+     console.log ('TYPEREGIONNUMBER', typeof regionNumber);
     console.log('object', object);
     function convertCoordinates(point) {
       return [(2 * Math.atan(Math.exp(point[1] / 6378137)) - Math.PI / 2) / (Math.PI / 180), point[0] / (Math.PI / 180.0) / 6378137.0];
