@@ -1479,16 +1479,17 @@ export async function getServerSideProps(context) {
 
   if (regionData.includes('-')) {
     const regionNumber = regionData.split('-')[0];
-    const regionId = parseInt(regionData.split('-')[1]);
-
+    // const regionId = parseInt(regionData.split('-')[1]);
+    const regionId = regionData.split('-')[1];
+    console.log('regionNumber', regionNumber);
     const parentRegionName = macroRegions.find((it) => it.key === parseInt(regionNumber))?.name;
     const englishRegionName = regionsRus.find((it) => it.rus === parentRegionName)?.EN;
 
 
     const collection = db.collection(`${englishRegionName}_fias_street`);
-    console.log('collection', collection);
+    const count = await db.collection(`${englishRegionName}_fias_street`).countDocuments();
+    console.log(`✅ Коллекция "${englishRegionName}_fias_street" найдена, документов: ${count}`);
     const array = await collection.find({'parent_id_adm': regionId }).toArray();
-    console.log('array', array);
     const regionNameObject = await collection.findOne({'id': regionId });
     const regionName = regionNameObject?.name;
 
@@ -1522,8 +1523,6 @@ export async function getServerSideProps(context) {
       'data.feature.attrs.okrug': regionNumber
     });
 
-    console.log('object', object);
-
 
     function convertCoordinates(point) {
       return [(2 * Math.atan(Math.exp(point[1] / 6378137)) - Math.PI / 2) / (Math.PI / 180), point[0] / (Math.PI / 180.0) / 6378137.0];
@@ -1545,8 +1544,8 @@ export async function getServerSideProps(context) {
 
   if (regionData.includes('_')) {
     const regionNumber = regionData.split('_')[0];
-    const regionId = parseInt(regionData.split('_')[1]);
-
+    // const regionId = parseInt(regionData.split('_')[1]);
+    const regionId = regionData.split('_')[1];
     // const collection = db.collection('Reestr_geo');
     const parentRegionName = macroRegions.find((it) => it.key === parseInt(regionNumber))?.name;
     const englishRegionName = regionsRus.find((it) => it.rus === parentRegionName)?.EN;
@@ -1671,8 +1670,8 @@ export async function getServerSideProps(context) {
 
   if (regionData.includes(',')) {
     const regionNumber = regionData.split(',')[0];
-    const regionId = parseInt(regionData.split(',')[1]);
-
+    // const regionId = parseInt(regionData.split(',')[1]);
+    const regionId = regionData.split(',')[1];
     const macroRegionName = macroRegions.find((it) => it.key === parseInt(regionNumber))?.name;
     const englishRegionName = regionsRus.find((it) => it.rus === macroRegionName)?.EN;
 
@@ -1776,7 +1775,8 @@ export async function getServerSideProps(context) {
 
    if (regionData.includes('.')) {
     const regionNumber = regionData.split('.')[0];
-    const regionId = parseInt(regionData.split('.')[1]);
+    // const regionId = parseInt(regionData.split('.')[1]);
+    const regionId = regionData.split('.')[1];
     const macroRegionName = macroRegions.find((it) => it.key === parseInt(regionNumber))?.name;
     const englishRegionName = regionsRus.find((it) => it.rus === macroRegionName)?.EN;
 
@@ -1862,7 +1862,8 @@ export async function getServerSideProps(context) {
 
   if (regionData.includes('^')) {
     const regionNumber = regionData.split('^')[0];
-    const regionId = parseInt(regionData.split('^')[1]);
+    // const regionId = parseInt(regionData.split('^')[1]);
+    const regionId = regionData.split('^')[1];
     const macroRegionName = macroRegions.find((it) => it.key === parseInt(regionNumber))?.name;
     const englishRegionName = regionsRus.find((it) => it.rus === macroRegionName)?.EN;
 
@@ -1951,8 +1952,6 @@ export async function getServerSideProps(context) {
   }
 
   const collection1 = db.collection(`${englishRegionName}_fias_street`);
-  const count = await db.collection(`${englishRegionName}_fias_street`).countDocuments();
-  console.log(`✅ Коллекция "${englishRegionName}_fias_street" найдена, документов: ${count}`);
   const array = await collection1.find({ 'level': { $in: [2, 3, 5] } }).toArray();
   const regionArray = array.map((it) => {
     return {

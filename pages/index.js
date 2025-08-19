@@ -457,7 +457,7 @@ export default function Home({ country, lat, lon, referer }) {
                               itemType="https://schema.org/Answer"
                               style={{ display: activeIndex === i ? 'block' : 'none' }}
                             >
-                              <p itemProp="text">{item.answer}</p>
+                              <div itemProp="text" suppressHydrationWarning>{item.answer}</div>
                             </div>
                           </div>
                         ))}
