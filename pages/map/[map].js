@@ -1867,8 +1867,6 @@ export async function getServerSideProps(context) {
     const englishRegionName = regionsRus.find((it) => it.rus === macroRegionName)?.EN;
 
     const collection = db.collection(`${englishRegionName}_fias_street`);
-    const count = await db.collection(`${englishRegionName}_fias_street`).countDocuments();
-    console.log(`✅ Коллекция "${englishRegionName}_fias_street" найдена, документов: ${count}`);
     const houseNameObject = await collection.findOne({'id': regionId });
     const houseGuid = houseNameObject?.guid;
     const streetId = houseNameObject?.parent_id_adm;
@@ -1953,7 +1951,8 @@ export async function getServerSideProps(context) {
   }
 
   const collection1 = db.collection(`${englishRegionName}_fias_street`);
-
+  const count = await db.collection(`${englishRegionName}_fias_street`).countDocuments();
+  console.log(`✅ Коллекция "${englishRegionName}_fias_street" найдена, документов: ${count}`);
   const array = await collection1.find({ 'level': { $in: [2, 3, 5] } }).toArray();
   const regionArray = array.map((it) => {
     return {
