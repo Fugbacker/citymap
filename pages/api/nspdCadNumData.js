@@ -10,7 +10,6 @@ let lastSuccessfulIndex = -1;
 
 export default async function chart(req, res) {
   const cadNum = req.query.cadNumber;
-  console.log('cadNum', cadNum);
   const userAgent = new UserAgent();
 
   const host = req.headers.host;

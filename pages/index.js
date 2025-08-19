@@ -375,7 +375,7 @@ export default function Home({ country, lat, lon, referer }) {
               </div>
           </div>
 
-          <div className={`${style.section} ${style.services}`}>
+          {/* <div className={`${style.section} ${style.services}`}>
             <div className={style.content1}>
                 <div className={style.object__block}>
                   <div className={style["object__block-title"]}><h2>Вопросы по кадастровой карте</h2></div>
@@ -464,7 +464,7 @@ export default function Home({ country, lat, lon, referer }) {
                       </section>
                 </div>
               </div>
-          </div>
+          </div> */}
         </article>
         <section id="section-4">
             <div className={`${style.section} ${style.services}`}>

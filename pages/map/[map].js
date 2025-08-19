@@ -25,6 +25,7 @@ import AroundObjects from '@/Components/aroundObjects'
 import { FakeOrders } from '@/Components/fakeOrders'
 import style from '@/styles/File.module.css'
 import styles from '@/styles/PublicCadastralMap.module.css';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 
 const url = process.env.MONGO_URL
@@ -1481,16 +1482,11 @@ export async function getServerSideProps(context) {
     const regionNumber = regionData.split('-')[0];
     // const regionId = parseInt(regionData.split('-')[1]);
     const regionId = regionData.split('-')[1];
-    console.log('regionNumber', regionNumber);
     const parentRegionName = macroRegions.find((it) => it.key === parseInt(regionNumber))?.name;
     const englishRegionName = regionsRus.find((it) => it.rus === parentRegionName)?.EN;
-
-
     const collection = db.collection(`${englishRegionName}_fias_street`);
-    const count = await db.collection(`${englishRegionName}_fias_street`).countDocuments();
-    console.log(`✅ Коллекция "${englishRegionName}_fias_street" найдена, документов: ${count}`);
     const array = await collection.find({'parent_id_adm': regionId }).toArray();
-    const regionNameObject = await collection.findOne({'id': regionId });
+    const regionNameObject = await collection.findOne({'id': parseInt(regionId) });
     const regionName = regionNameObject?.name;
 
     const settlementsArray = array.map((it) => {
@@ -1557,7 +1553,7 @@ export async function getServerSideProps(context) {
       level: { $in: [6, 7] }
     }).toArray();
 
-    const regionNameObject = await collection.findOne({'id': regionId });
+    const regionNameObject = await collection.findOne({'id': parseInt(regionId) });
     let regionName = regionNameObject?.name;
 
     const settlementsArray = array.map((it) => {
@@ -1677,12 +1673,12 @@ export async function getServerSideProps(context) {
 
 
     const collection = db.collection(`${englishRegionName}_fias_street`);
-    const settlementNameObject = await collection.findOne({'id': regionId });
+    const settlementNameObject = await collection.findOne({'id': parseInt(regionId) });
 
     let settlementName = settlementNameObject?.name;
     const settlementType = settlementNameObject?.type;
     let regionNameId = settlementNameObject?.parent_id_adm;
-    const regionNameObject = await collection.findOne({'id': regionNameId });
+    const regionNameObject = await collection.findOne({'id': parseInt(regionNameId) });
 
     const regionName = regionNameObject?.name;
     const regionType = regionNameObject?.type;
@@ -1781,23 +1777,21 @@ export async function getServerSideProps(context) {
     const englishRegionName = regionsRus.find((it) => it.rus === macroRegionName)?.EN;
 
     const collection = db.collection(`${englishRegionName}_fias_street`);
-    const streetNameObject = await collection.findOne({'id': regionId });
-
+    const streetNameObject = await collection.findOne({'id': parseInt(regionId) });
     let streetName = streetNameObject?.name;
     const streetType = streetNameObject?.type;
     let settlementNameId = streetNameObject?.parent_id_adm;
-    const settlementNameObject = await collection.findOne({'id': settlementNameId });
+    const settlementNameObject = await collection.findOne({'id': parseInt(settlementNameId) });
 
     const settlementName = settlementNameObject?.name;
     const settlementType = settlementNameObject?.type;
     const regionNameId = settlementNameObject?.parent_id_adm;
-    const regionNameObject = await collection.findOne({'id': regionNameId });
+    const regionNameObject = await collection.findOne({'id': parseInt(regionNameId) });
     const regionName = regionNameObject?.name;
     const regionType = regionNameObject?.type;
-
     const dataArray = await collection.find({
       parent_id_adm: regionId,
-      level: { $in: [9] }
+      level: { $in: [9, 10] }
     }).toArray();
 
     const houseArray = dataArray.map((it) => {
@@ -1826,14 +1820,18 @@ export async function getServerSideProps(context) {
     });
 
     let fullAddress = `${macroRegionName}, ${regionName} ${regionType}, ${settlementType} ${settlementName} , ${streetType} ${streetName}`;
-
     const getAskDadata = await axios(`https://cadmap.su/api/nspdCadNumData?cadNumber=${encodeURI(fullAddress)}`)
     const filtered = getAskDadata?.data?.data?.features?.filter(f => f?.geometry?.type === 'Point');
 
-
     const streetData = filtered?.[Math.floor((filtered.length - 1) / 2)]
     // let streetData = getAskDadata.data.suggestions[0];
-    const coordinates = streetData?.geometry?.coordinates;
+    let coordinates = streetData?.geometry?.coordinates;
+
+    if (!coordinates) {
+      const streetDadada = getAskDadata?.data?.data?.features?.[0]
+      const polygonPoint = streetDadada?.geometry?.coordinates?.[0]?.[0];
+      coordinates = polygonPoint
+    }
 
     function mercatorToLonLat([x, y]) {
       const lon = (x / 6378137) * (180 / Math.PI);
@@ -1868,20 +1866,20 @@ export async function getServerSideProps(context) {
     const englishRegionName = regionsRus.find((it) => it.rus === macroRegionName)?.EN;
 
     const collection = db.collection(`${englishRegionName}_fias_street`);
-    const houseNameObject = await collection.findOne({'id': regionId });
+    const houseNameObject = await collection.findOne({'id': parseInt(regionId) });
     const houseGuid = houseNameObject?.guid;
     const streetId = houseNameObject?.parent_id_adm;
-    const streetNameObject = await collection.findOne({'id': streetId });
+    const streetNameObject = await collection.findOne({'id': parseInt(streetId) });
 
     let streetName = streetNameObject?.name;
     const streetType = streetNameObject?.type;
     let settlementNameId = streetNameObject?.parent_id_adm;
-    const settlementNameObject = await collection.findOne({'id': settlementNameId });
+    const settlementNameObject = await collection.findOne({'id': parseInt(settlementNameId) });
 
     const settlementName = settlementNameObject?.name;
     const settlementType = settlementNameObject?.type;
     const regionNameId = settlementNameObject?.parent_id_adm;
-    const regionNameObject = await collection.findOne({'id': regionNameId });
+    const regionNameObject = await collection.findOne({'id': parseInt(regionNameId) });
     const regionName = regionNameObject?.name;
 
     const askFias = await axios({
