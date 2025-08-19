@@ -1827,7 +1827,7 @@ export async function getServerSideProps(context) {
 
     let fullAddress = `${macroRegionName}, ${regionName} ${regionType}, ${settlementType} ${settlementName} , ${streetType} ${streetName}`;
 
-    const getAskDadata = await axios(`http://localhost:3000/api/nspdCadNumData?cadNumber=${encodeURI(fullAddress)}`)
+    const getAskDadata = await axios(`https://cadmap.su/api/nspdCadNumData?cadNumber=${encodeURI(fullAddress)}`)
     const filtered = getAskDadata?.data?.data?.features?.filter(f => f?.geometry?.type === 'Point');
 
 
@@ -1867,6 +1867,8 @@ export async function getServerSideProps(context) {
     const englishRegionName = regionsRus.find((it) => it.rus === macroRegionName)?.EN;
 
     const collection = db.collection(`${englishRegionName}_fias_street`);
+    const count = await db.collection(`${englishRegionName}_fias_street`).countDocuments();
+    console.log(`✅ Коллекция "${englishRegionName}_fias_street" найдена, документов: ${count}`);
     const houseNameObject = await collection.findOne({'id': regionId });
     const houseGuid = houseNameObject?.guid;
     const streetId = houseNameObject?.parent_id_adm;
