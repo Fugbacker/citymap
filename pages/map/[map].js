@@ -1488,7 +1488,8 @@ export async function getServerSideProps(context) {
     const array = await collection.find({'parent_id_adm': regionId }).toArray();
     const regionNameObject = await collection.findOne({'id': parseInt(regionId) });
     const regionName = regionNameObject?.name;
-
+    console.log('regionNameObject', regionNameObject);
+    console.log('regionName', regionName);
     const settlementsArray = array.map((it) => {
       return {
         name: `${it.type}. ${it.name}`,
