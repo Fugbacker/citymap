@@ -893,9 +893,9 @@ function coord3857To4326(coord) {
                   <PromoCode setPromoCode={setPromoCode} cadNumber={cadastrNumber || onCkickCadastrNumber} promoCode={promoCode} setActivate={setActivate} activate={activate} setVisible={setIsVisible} isVisible={isVisible}/>
                 </div> */}
                 <div className={style["info__table-wrap"]}>
-                <div className={style.adfinixBlock}>
+                {/* <div className={style.adfinixBlock}>
                    <div className="adfinity_block_14878"></div>
-                  </div>
+                </div> */}
                   <table className={style.info__table}>
                     <tbody key={cn}>
                       {outputObject()}
@@ -1198,25 +1198,14 @@ function coord3857To4326(coord) {
                   </div>
                 </div>
 
-                <div className={style.adfinixBlock}>
-                  <div className="adfinity_block_14878"></div>
-                </div>
-
                 {/* <div className={style.adfinixBlock}>
                   <div className="adfinity_block_14878"></div>
                 </div> */}
+
           </div>
         }
-        {/* {cadastrNumber && <CheckRaports cadNum={cadastrNumber} owner={owner} rightsCheck={rightsCheck} promoCode={promoCode} sendActivePromoCode={sendActivePromoCode} setPromoCode={setPromoCode} setActivate={setActivate} activate={activate}/>} */}
-      </div>
+       </div>
     </div >
-    {/* <div className={style.object__block} id="infrastructura">
-      <div className={style["object__block-wrap"]}>
-        <div className={style.adfinixBlock}>
-          <div class="adfinity_block_13133"></div>
-        </div>
-      </div>
-    </div> */}
     </>
   )
 }

@@ -8,7 +8,6 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <Script src="https://cdn.adfinity.pro/code/5942/adfinity.js" async strategy="beforeInteractive"></Script>
         <script
             dangerouslySetInnerHTML={{
               __html: `
