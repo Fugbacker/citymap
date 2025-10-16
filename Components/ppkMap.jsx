@@ -353,11 +353,11 @@ const PpkMap = ({ cadastrNumber, setCloseChecker, setAlarmMessage, setCadastrNum
     }
   }
 
-  const history = async (cadNum) => {
-     const history =await axios(`/api/cadCostHistory?cadNumber=${cadastrNumber || cadNum}`)
-     setHistoryCadCost(history?.data)
+  // const history = async (cadNum) => {
+  //    const history =await axios(`/api/cadCostHistory?cadNumber=${cadastrNumber || cadNum}`)
+  //    setHistoryCadCost(history?.data)
 
-  }
+  // }
 
 
   useEffect(() => {
@@ -496,7 +496,7 @@ const PpkMap = ({ cadastrNumber, setCloseChecker, setAlarmMessage, setCadastrNum
         const nspdData = nspdResponse?.data;
 
         const cadastrNumber = nspdData?.features?.[0]?.properties?.options?.cad_num || nspdData?.features?.[0]?.properties?.externalKey
-        history(cadastrNumber)
+        // history(cadastrNumber)
         const coordinate = nspdData?.features?.[0]?.geometry?.coordinates
         const convertedCoordinate = convertCoords(coordinate) // Конвертация координат широты/долготы в
         setBbox(convertedCoordinate)
